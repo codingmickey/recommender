@@ -9,9 +9,12 @@ import { JsonOutputFunctionsParser } from 'langchain/output_parsers';
 import { StreamingTextResponse } from 'ai';
 import { BytesOutputParser } from 'langchain/dist/schema/output_parser';
 
-const TEMPLATE = `Assume that you are an content writing specialist. You are appointed by a company to write their marketing emails. You should write the emails referencing the details that are provided in the input.
+export const runtime = 'edge'; // 'nodejs' is the default
+export const preferredRegion = 'iad1'; // only execute this function on iad1
 
-You have to write 5 marketing emails which should be written with the details that should be kept in mind while that is mentioned in the input. The emails should be written in a way that it should be able to convince the customers or the users to do the task. These mails are written to the customers to increase the sales of the company.
+const TEMPLATE = `Assume that you are an content writing specialist. You are appointed by the company to create very well written emails on behalf of the company.
+
+You have to write 5 marketing emails which should be written with the details that should be kept in mind while that is mentioned in the input. The emails should be written in a way that it should be able to convince the customers or the users to do the task.
 
 The target audience is the customers or the users of the company. The sender is the company's name which will be replaced by the user and not the generic industry name in which it operates.
 
