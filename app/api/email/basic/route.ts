@@ -9,8 +9,6 @@ import { JsonOutputFunctionsParser } from 'langchain/output_parsers';
 import { StreamingTextResponse } from 'ai';
 import { BytesOutputParser } from 'langchain/dist/schema/output_parser';
 
-export const runtime = 'edge';
-
 const TEMPLATE = `Assume that you are an content writing specialist. You are appointed by a company to write their marketing emails. You should write the emails referencing the details that are provided in the input.
 
 You have to write 5 marketing emails which should be written with the details that should be kept in mind while that is mentioned in the input. The emails should be written in a way that it should be able to convince the customers or the users to do the task. These mails are written to the customers to increase the sales of the company.
