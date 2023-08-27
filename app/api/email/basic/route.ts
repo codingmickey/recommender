@@ -10,7 +10,7 @@ import { StreamingTextResponse } from 'ai';
 import { BytesOutputParser } from 'langchain/dist/schema/output_parser';
 
 export const runtime = 'edge'; // 'nodejs' is the default
-export const preferredRegion = 'iad1'; // only execute this function on iad1
+export const preferredRegion = 'bom1'; // only execute this function on bom1
 
 const TEMPLATE = `Assume that you are an content writing specialist. You are appointed by the company to create very well written emails on behalf of the company.
 
