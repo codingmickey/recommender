@@ -39,6 +39,16 @@ const GeneratedEmailList = ({
         </button>
         <h2 className="text-xl font-semibold text-gray-800">Generated Emails</h2>
       </div>
+      {generatedEmails.length === 0 && (
+        <div className="p-4 rounded-lg shadow-md bg-transparent border border-orange-300 relative">
+          <h3 className="text-gray-800 text-lg font-semibold mb-2 pr-7">
+            No emails generated or sorry if refreshed as no Database is connected for now! :(
+          </h3>
+          <div className="text-gray-800">
+            <p>Try generating some emails!</p>
+          </div>
+        </div>
+      )}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {generatedEmails.map((email, index) => (
           <div

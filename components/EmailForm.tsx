@@ -228,6 +228,17 @@ const EmailForm = () => {
               <button type="submit" className="bg-orange-600 text-white px-4 py-2 rounded-md">
                 Generate campaign
               </button>
+              {/* Add a button to check generated emails */}
+              <button
+                type="button"
+                // Change the syles to make it look like a link
+                className="text-orange-600 px-4 py-2 rounded-md text-right"
+                onClick={() => {
+                  setIsResultPage(true);
+                }}
+              >
+                Check generated emails
+              </button>
             </form>
           </div>
         </div>
