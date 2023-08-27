@@ -1,28 +1,34 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { FiCheck, FiArrowLeft, FiCopy } from 'react-icons/fi';
 
-type GeneratedEmail = {
-  id: string;
+export type GeneratedEmail = {
+  id?: string;
   subject: string;
-  content: string;
+  body: string;
 };
 
-const GeneratedEmailList = ({ generatedEmails }: { generatedEmails: GeneratedEmail[] }) => {
+const GeneratedEmailList = ({
+  generatedEmails,
+  setIsResultPage
+}: {
+  generatedEmails: GeneratedEmail[];
+  setIsResultPage: Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [copiedEmailIndex, setCopiedEmailIndex] = useState<number | null>(null);
   const router = useRouter();
 
   const handleCopyClick = (index: number) => {
-    const emailText = generatedEmails[index].content;
+    const emailText = generatedEmails[index].body;
     navigator.clipboard.writeText(emailText);
     setCopiedEmailIndex(index);
     setTimeout(() => setCopiedEmailIndex(null), 3000); // Reset copied email index after 3 seconds
   };
 
   const onBackClick = () => {
-    router.back();
+    setIsResultPage(false);
   };
 
   return (
@@ -46,7 +52,14 @@ const GeneratedEmailList = ({ generatedEmails }: { generatedEmails: GeneratedEma
               {copiedEmailIndex === index ? <FiCheck /> : <FiCopy />}
             </button>
             <h3 className="text-gray-800 text-lg font-semibold mb-2 pr-7">{email.subject}</h3>
-            <p className="text-gray-800">{email.content}</p>
+            <div className="text-gray-800">
+              {email.body.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
             {/* <button
               className={`mt-2 px-3 py-1 text-sm rounded-md ${
                 copiedEmailIndex === index ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'

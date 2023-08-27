@@ -1,5 +1,6 @@
 import EmailForm from '@/components/EmailForm';
-import React from 'react';
+import { GeneratedEmail } from '@/components/GeneratedEmailList';
+import React, { useState } from 'react';
 
 const HomePage = () => {
   return (
