@@ -1,9 +1,9 @@
 'use client';
 
-import GeneratedEmailList, { GeneratedEmail } from '@/components/GeneratedEmailList';
+import GeneratedEmailList from '@/components/GeneratedEmailList';
 import { useState } from 'react';
 
-export default function Chat({ generatedEmails }: { generatedEmails: GeneratedEmail[] }) {
+export default function Chat() {
   const [isResultPage, setIsResultPage] = useState(false);
   const data = {
     emails: [
@@ -32,7 +32,7 @@ export default function Chat({ generatedEmails }: { generatedEmails: GeneratedEm
 
   return (
     <>
-      <GeneratedEmailList generatedEmails={generatedEmails} setIsResultPage={setIsResultPage}></GeneratedEmailList>
+      <GeneratedEmailList generatedEmails={data.emails} setIsResultPage={setIsResultPage}></GeneratedEmailList>
     </>
   );
 }
