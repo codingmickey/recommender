@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg background-gradient">
+    <div className="min-h-screen flex items-center justify-center bg">
       <EmailForm />
     </div>
   );

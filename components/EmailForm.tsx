@@ -7,6 +7,7 @@ import { set } from 'zod';
 import { toast } from 'react-toastify';
 import GeneratedEmailList, { GeneratedEmail } from './GeneratedEmailList';
 import { useRouter } from 'next/navigation';
+import LoadingMessages from './LoadingMessages';
 
 const EmailForm = () => {
   const [campaignGoal, setCampaignGoal] = useState('');
@@ -16,6 +17,7 @@ const EmailForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isResultPage, setIsResultPage] = useState(false);
   const [generatedEmails, setGeneratedEmails] = useState<GeneratedEmail[]>([]);
+  const [apiCallCount, setApiCallCount] = useState(0);
 
   const router = useRouter();
 
@@ -34,52 +36,82 @@ const EmailForm = () => {
   const handleEmailContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEmailContent(event.target.value);
   };
+  // Make a function to make api call 5 times simultaneously and then append the response to the setGeneratedEmails
+  const makeApiCall = async (i: number, maxEmails: number) => {
+    try {
+      console.log('campaignGoal', campaignGoal);
+      console.log('brandTone', brandTone);
+      console.log('industry', customIndustry);
+      console.log('details', emailContent);
+
+      if (i === 0) {
+        setIsLoading(true);
+        toast.info('Generating emails...');
+      } else if (i === maxEmails - 1) {
+        toast.info('Generating last email...');
+      } else {
+        toast.info('Generating more emails...');
+      }
+      const response = await fetch('/api/email/basic', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          campaignGoal,
+          brandTone,
+          industry: customIndustry,
+          details: emailContent
+        })
+      });
+      const data = await response.json();
+      console.log('Success:', data);
+      if (i === 0) {
+        setIsLoading(false);
+        setIsResultPage(true);
+        toast.success('First generated successfully!');
+      } else if (i === maxEmails - 1) {
+        toast.success('All emails generated successfully!');
+      } else {
+        toast.success('More emails generated successfully!');
+      }
+
+      setGeneratedEmails((prevEmails) => [...prevEmails, data.emails[0]]);
+    } catch (error) {
+      console.error('Error:', error);
+      setIsLoading(false);
+      toast.error(`Error: ${error}`);
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    console.log('campaignGoal', campaignGoal);
-    console.log('brandTone', brandTone);
-
-    setIsLoading(true);
-    toast.info('Generating emails...');
-
-    fetch('/api/email/basic', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        campaignGoal,
-        brandTone,
-        industry: customIndustry,
-        details: emailContent
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        setIsLoading(false);
-        toast.success('Emails generated successfully!');
-
-        setGeneratedEmails(data.emails);
-        setIsResultPage(true);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        setIsLoading(false);
-        toast.error(`Error: ${error}`);
-      });
+    setGeneratedEmails([]);
+    const maxEmails = 5;
+    for (let i = 0; i < maxEmails; i++) {
+      setApiCallCount(i);
+      await makeApiCall(i, maxEmails);
+      console.log('apiCallCount', apiCallCount);
+    }
   };
 
   return (
     <>
       {isLoading ? (
-        <LoadingDots style="big" />
+        <div className="block background-gradient">
+          <div className="text-center">
+            {' '}
+            <LoadingDots style="big" />
+          </div>
+          <br />
+          <br />
+          <LoadingMessages />
+        </div>
       ) : isResultPage ? (
         <GeneratedEmailList generatedEmails={generatedEmails} setIsResultPage={setIsResultPage} />
       ) : (
-        <div className="">
+        <div className="background-gradient">
           {/* hover:shadow-orange-500/50 */}
           <div className="max-w-7xl mx-auto p-4 px-20 rounded-xl border-2 border-orange-600/40 bg-orange-100/10 shadow-xl backdrop-filter backdrop-blur-lg transform duration-300 shadow-orange-500/25 py-12 flex flex-col items-center gap-8 w-full">
             <h2 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-black-300 sm:text-5xl">

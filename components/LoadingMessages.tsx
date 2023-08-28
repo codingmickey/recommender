@@ -45,7 +45,7 @@ const LoadingMessages: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(interval);
