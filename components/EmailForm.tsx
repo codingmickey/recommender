@@ -113,8 +113,8 @@ const EmailForm = () => {
       ) : (
         <div className="background-gradient">
           {/* hover:shadow-orange-500/50 */}
-          <div className="max-w-7xl mx-auto p-4 px-20 rounded-xl border-2 border-orange-600/40 bg-orange-100/10 shadow-xl backdrop-filter backdrop-blur-lg transform duration-300 shadow-orange-500/25 py-12 flex flex-col items-center gap-8 w-full">
-            <h2 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-black-300 sm:text-5xl">
+          <div className="max-w-7xl mx-auto p-4 md:px-20 px-5 rounded-xl border-2 border-orange-600/40 bg-orange-100/10 shadow-xl backdrop-filter backdrop-blur-lg transform duration-300 shadow-orange-500/25 py-12 flex flex-col items-center gap-8 w-full">
+            <h2 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-black-300 sm:text-5xl text-center">
               Create your marketing emails{' '}
               <span className="relative whitespace-nowrap text-orange-600">
                 <SquigglyLines />
