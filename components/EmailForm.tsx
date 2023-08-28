@@ -25,7 +25,7 @@ const EmailForm = () => {
     setCampaignGoal(event.target.value);
   };
 
-  const handleBrandToneChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleBrandToneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBrandTone(event.target.value);
   };
 
@@ -189,41 +189,75 @@ const EmailForm = () => {
                     <input
                       type="radio"
                       name="campaignGoal"
-                      value="Convince to buy product"
+                      value="Promote upcoming event"
                       className="mr-2"
                       required
                       onChange={handleCampaignGoalChange}
                     />
-                    Convince to buy product
+                    Promote upcoming event
                   </label>
                   <label className="flex items-center">
                     <input
                       type="radio"
                       name="campaignGoal"
-                      value="Recover churned customers"
+                      value="Gather customer feedback"
                       className="mr-2"
                       required
                       onChange={handleCampaignGoalChange}
                     />
-                    Recover churned customers
+                    Gather customer feedback
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="campaignGoal"
+                      value="Announce partnership"
+                      className="mr-2"
+                      required
+                      onChange={handleCampaignGoalChange}
+                    />
+                    Announce partnership
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="campaignGoal"
+                      value="Celebrate company milestone"
+                      className="mr-2"
+                      required
+                      onChange={handleCampaignGoalChange}
+                    />
+                    Celebrate company milestone
                   </label>
                 </div>
               </div>
 
               <div className="mb-4">
-                <label htmlFor="brandTone" className="block font-medium mb-1">
-                  Brand tone
-                </label>
-                <select
-                  required
-                  id="brandTone"
-                  name="brandTone"
-                  className="w-full border rounded-md px-3 py-2"
-                  onChange={handleBrandToneChange}
-                >
-                  <option value="Formal">Formal</option>
-                  <option value="Informal">Informal</option>
-                </select>
+                <label className="block font-medium mb-1"> Brand tone</label>
+                <div className="space-y-2">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="brandTone"
+                      value="Formal"
+                      className="mr-2"
+                      required
+                      onChange={handleBrandToneChange}
+                    />
+                    Formal
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="brandTone"
+                      value="Informal"
+                      className="mr-2"
+                      required
+                      onChange={handleBrandToneChange}
+                    />
+                    Informal
+                  </label>
+                </div>
               </div>
 
               <div className="mb-4">
